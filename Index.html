@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stranger Things - Purple Rain</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        .bg-image {
+            /* Imposta l'immagine come sfondo */
+            background-image: url('2003bb2544574dd3.webp');
+            
+            /* Centra e copre l'intera schermata */
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+            /* Effetto di transizione all'apertura */
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+
+    <audio id="myAudio" autoplay>
+        <source src="https://www.dropbox.com/scl/fi/e1grg6jyf1ixc84z3ooz6/Prince-Purple-Rain.mp3?rlkey=xsu2zocv029vhyull9d4zfuun&st=dp69jmdm&raw=1" type="audio/mpeg">
+        Il tuo browser non supporta l'elemento audio.
+    </audio>
+
+    <script>
+        // Tentativo forzato di avvio per superare alcune restrizioni browser
+        window.addEventListener('load', function() {
+            var audio = document.getElementById('myAudio');
+            audio.volume = 0.5; // Imposta il volume al 50%
+            
+            var playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Autoplay avviato con successo
+                    console.log("Riproduzione avviata");
+                }).catch(error => {
+                    // Autoplay bloccato dal browser
+                    console.log("Il browser ha bloccato l'autoplay. Clicca ovunque per avviare.");
+                    // In caso di blocco, basta un click sulla pagina per far partire l'audio
+                    document.body.addEventListener('click', function() {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
